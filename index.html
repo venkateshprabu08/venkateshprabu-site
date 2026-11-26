@@ -5,148 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Venkatesh Prabu</title>
   <meta name="description" content="Venkatesh Prabu: self-hosting, homelab and web projects.">
-  <!-- SAMPLE PORTFOLIO: placeholder text is marked with [brackets]. Replace it when the full design is ready. -->
-  <style>
-    :root {
-      color-scheme: light dark;
-      --bg: #fafafa; --surface: #ffffff; --fg: #1a1a1a; --muted: #5f6368;
-      --line: #e4e4e4; --accent: #0f6e56; --accent-fg: #ffffff; --chip: #eef5f2;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg: #0f1112; --surface: #171a1b; --fg: #ececec; --muted: #a3a8ab;
-              --line: #2a2e30; --accent: #5dcaa5; --accent-fg: #0b1f19; --chip: #1d2a26; }
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-           background: var(--bg); color: var(--fg); line-height: 1.6; }
-    a { color: var(--accent); }
-    .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
-
-    header { position: sticky; top: 0; z-index: 10; background: var(--bg);
-             border-bottom: 1px solid var(--line); }
-    header .wrap { display: flex; align-items: center; justify-content: space-between;
-                   gap: 12px; height: 56px; }
-    .brand { font-weight: 600; text-decoration: none; color: var(--fg); }
-    nav { display: flex; gap: 18px; }
-    nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
-    nav a:hover { color: var(--fg); }
-
-    section { padding: 56px 0; border-bottom: 1px solid var(--line); }
-    section:last-of-type { border-bottom: 0; }
-    h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.15; margin: 0 0 12px; font-weight: 650; }
-    h2 { font-size: 22px; margin: 0 0 20px; font-weight: 600; }
-    h3 { font-size: 18px; margin: 0 0 6px; font-weight: 600; }
-    p { margin: 0 0 14px; }
-    .lead { font-size: 18px; color: var(--muted); max-width: 620px; }
-    .eyebrow { font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
-               color: var(--accent); font-weight: 600; margin-bottom: 8px; }
-
-    .btn { display: inline-block; padding: 11px 18px; border-radius: 8px; font-weight: 550;
-           text-decoration: none; font-size: 15px; border: 1px solid var(--accent); }
-    .btn-primary { background: var(--accent); color: var(--accent-fg); }
-    .btn-ghost { color: var(--accent); background: transparent; }
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-
-    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
-    .card p { color: var(--muted); font-size: 15px; }
-    .featured { grid-column: 1 / -1; border-color: var(--accent); }
-    .tag { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
-    .chips li { background: var(--chip); color: var(--fg); font-size: 13px; padding: 3px 10px; border-radius: 999px; }
-    .muted { color: var(--muted); }
-    footer { padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
-
-    @media (max-width: 520px) { nav { gap: 12px; } nav a { font-size: 14px; } section { padding: 40px 0; } }
-  </style>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <a class="brand" href="#top">Venkatesh Prabu</a>
-      <nav>
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<pre class="tux" aria-label="Tux, the Linux penguin">    .--.
+   |o_o |
+   |:_/ |
+  //   \ \
+ (|     | )
+/'\_   _/`\
+\___)=(___/</pre>
 
-  <main id="top">
-    <section>
-      <div class="wrap">
-        <div class="eyebrow">Portfolio · sample</div>
-        <h1>Hi, I'm Venkatesh Prabu.</h1>
-        <p class="lead">I build and run self-hosted services on my own home server. [Add one line about your role, studies or work here.]</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#music">Try the music demo</a>
-          <a class="btn btn-ghost" href="#projects">See projects</a>
-        </div>
-      </div>
-    </section>
+<main>
+<div class="prompt"><b>visitor@venkateshprabu</b>:~$ whoami</div>
+<section class="box">
+  <h2>whoami</h2>
+  <h1 class="out">Venkatesh Prabu</h1>
+  <p class="out">I build and run self-hosted services on my own Linux home server:
+music streaming, photo backup, ad blocking and monitoring, all in Docker.
+I like understanding how things work end to end, from the hardware and
+firewall up to DNS and the web page.
+<span class="dim">[Add a line about your studies or work here.]</span></p>
+</section>
 
-    <section id="projects">
-      <div class="wrap">
-        <h2>Projects</h2>
-        <div class="grid">
+<div class="prompt"><b>visitor@venkateshprabu</b>:~$ ls -l projects/</div>
+<section class="box">
+  <h2>projects</h2>
+  <p class="out"><a href="/music/">music-streaming/</a>   <span class="dim">live demo</span>
+  Spotify-style music server with Navidrome, shared publicly through
+  Tailscale Funnel. Demo library of 214 licence-free tracks.
+  &gt; <a href="https://linus.tail16ef75.ts.net/" target="_blank" rel="noopener">open music demo</a>   <a href="/music/">read more</a>
 
-          <article class="card featured" id="music">
-            <div class="tag">Live demo · Self-hosted</div>
-            <h3>Music streaming server</h3>
-            <p>A private music streaming service running on my home server with Navidrome, playable in the browser and in Subsonic apps on Android and Mac. This public demo is separate from my own library and uses only licence-free and public-domain tracks.</p>
-            <ul class="chips">
-              <li>Navidrome</li><li>Docker</li><li>Ubuntu Server</li><li>Tailscale Funnel</li><li>Cloudflare Pages</li>
-            </ul>
-            <div class="actions">
-              <a class="btn btn-primary" href="https://linus.tail16ef75.ts.net/" target="_blank" rel="noopener">Open the music demo</a>
-              <a class="btn btn-ghost" href="/music/">About this project</a>
-            </div>
-            <p class="muted" style="margin-top:12px;font-size:13px">Demo link: <a href="https://linus.tail16ef75.ts.net/" target="_blank" rel="noopener">linus.tail16ef75.ts.net</a> · Runs on a small home server, so it may sometimes be offline.</p>
-          </article>
+homelab/            <span class="dim">private</span>
+  The home server everything runs on. Details below.
 
-          <article class="card">
-            <div class="tag">Homelab</div>
-            <h3>Home server "linus"</h3>
-            <p>An old desktop turned into a home server: photo backup, ad blocking, a monitoring dashboard and remote access over a private VPN, all hardened with a firewall and key-only SSH.</p>
-            <ul class="chips"><li>Immich</li><li>Pi-hole</li><li>Homepage</li><li>Portainer</li><li>ufw</li></ul>
-          </article>
+portfolio-site/     <span class="dim">this page</span>
+  Static site on GitHub, deployed by Cloudflare to venkateshprabu.me.</p>
+</section>
 
-          <article class="card">
-            <div class="tag">Coming soon</div>
-            <h3>[Next project]</h3>
-            <p>[Short description of another project. Duplicate this card for each new project.]</p>
-          </article>
+<div class="prompt"><b>visitor@venkateshprabu</b>:~$ cat projects/homelab/README</div>
+<section class="box">
+  <h2>homelab</h2>
+  <p class="out">host       "linus", an old HP desktop running Ubuntu Server 24.04
+cpu        Intel Pentium J3710, 4 cores
+disk       1 TB, health checked weekly (SMART self-tests)
+services   Immich        photo and video backup from phones
+           Navidrome     music streaming (private + public demo)
+           Pi-hole       network-wide ad blocking
+           Homepage      dashboard with live CPU, memory, disk stats
+           Portainer     start and stop containers
+access     Tailscale private VPN; nothing opened on the router
+security   ufw firewall (deny by default), SSH keys only,
+           containers run as non-root with memory limits</p>
+</section>
 
-        </div>
-      </div>
-    </section>
+<div class="prompt"><b>visitor@venkateshprabu</b>:~$ cat skills.txt</div>
+<section class="box">
+  <h2>skills</h2>
+  <p class="out">linux      Ubuntu Server, systemd, bash, users and permissions
+containers Docker, Docker Compose, resource limits
+network    DNS, VPN (Tailscale / WireGuard), firewalls, HTTPS
+web        HTML, CSS, Git, GitHub, Cloudflare
+<span class="dim">[Add more skills here.]</span></p>
+</section>
 
-    <section id="about">
-      <div class="wrap">
-        <h2>About</h2>
-        <p class="lead">[A short paragraph about you: what you do, what you're learning and what you enjoy building.]</p>
-        <ul class="chips">
-          <li>Linux</li><li>Docker</li><li>Networking</li><li>Self-hosting</li><li>[Skill]</li><li>[Skill]</li>
-        </ul>
-      </div>
-    </section>
+<div class="prompt"><b>visitor@venkateshprabu</b>:~$ contact</div>
+<section class="box">
+  <h2>contact</h2>
+  <p class="out">github     <a href="https://github.com/venkateshprabu08" target="_blank" rel="noopener">github.com/venkateshprabu08</a>
+linkedin   <span class="dim">[add link]</span>
+email      <span class="dim">[add address]</span></p>
+</section>
 
-    <section id="contact">
-      <div class="wrap">
-        <h2>Contact</h2>
-        <p class="muted">The best way to reach me:</p>
-        <div class="actions">
-          <a class="btn btn-ghost" href="https://github.com/venkateshprabu08" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn btn-ghost" href="#">[LinkedIn]</a>
-          <a class="btn btn-ghost" href="#">[Email]</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">© 2026 Venkatesh Prabu · Hosted on Cloudflare Pages</div>
-  </footer>
+<div class="prompt"><b>visitor@venkateshprabu</b>:~$ <span class="cursor" aria-hidden="true"></span></div>
+</main>
 </body>
 </html>

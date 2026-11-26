@@ -3,41 +3,162 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Music demo · Venkatesh Prabu</title>
-  <meta name="description" content="Live demo of my self-hosted Navidrome music server.">
-  <style>
-    :root { color-scheme: light dark; --fg: #1a1a1a; --bg: #fafafa; --muted: #5f6368; --accent: #0f6e56; --accent-fg: #fff; }
-    @media (prefers-color-scheme: dark) { :root { --fg: #ececec; --bg: #0f1112; --muted: #a3a8ab; --accent: #5dcaa5; --accent-fg: #0b1f19; } }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--fg);
-           min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; }
-    main { max-width: 560px; }
-    a { color: var(--accent); }
-    .back { display: inline-block; margin-bottom: 24px; font-size: 14px; text-decoration: none; }
-    h1 { font-size: 26px; font-weight: 600; margin: 0 0 10px; }
-    p, li { line-height: 1.6; color: var(--muted); }
-    p { margin: 0 0 16px; }
-    ul { padding-left: 20px; margin: 0 0 20px; }
-    a.button { display: inline-block; padding: 12px 20px; border-radius: 8px; background: var(--accent);
-               color: var(--accent-fg); text-decoration: none; font-weight: 550; }
-    small { display: block; margin-top: 20px; color: var(--muted); font-size: 13px; line-height: 1.6; }
-  </style>
+  <title>Music streaming · Venkatesh Prabu</title>
+  <meta name="description" content="Self-hosted music streaming with Navidrome on a Linux home server, with a public demo.">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <main>
-    <a class="back" href="/">← Back to portfolio</a>
-    <h1>Music streaming demo</h1>
-    <p>A self-hosted music server I run at home, built with Navidrome. This demo is separate from my own library and uses only licence-free and public-domain tracks.</p>
-    <ul>
-      <li>Runs in Docker on a small Ubuntu home server</li>
-      <li>Shared publicly through Tailscale Funnel, with no ports opened on my router</li>
-      <li>Works in the browser and in Subsonic apps such as Tempo</li>
-      <li>Music: Jamendo (Creative Commons) and Open Lo-Fi (CC0)</li>
-    </ul>
-    <a class="button" href="https://linus.tail16ef75.ts.net/" target="_blank" rel="noopener">Open the demo</a>
-    <small>Demo link: <a href="https://linus.tail16ef75.ts.net/" target="_blank" rel="noopener">linus.tail16ef75.ts.net</a><br>
-      [Demo login: username / password]<br>
-      Runs on a home server, so it may occasionally be offline.</small>
-  </main>
+<pre class="tux" aria-label="Tux, the Linux penguin">    .--.
+   |o_o |
+   |:_/ |
+  //   \ \
+ (|     | )
+/'\_   _/`\
+\___)=(___/</pre>
+
+<main>
+<div class="prompt"><b>visitor@venkateshprabu</b>:~$ cd projects/music-streaming && cat README</div>
+<section class="box">
+  <h2>README</h2>
+  <h1 class="out">music-streaming: a self-hosted Spotify-style server</h1>
+  <p class="out">My own music streaming service, running on a small Linux server at home.
+It plays in the browser and in phone and desktop apps like a streaming
+service, but the server, the library and the data are all mine.
+
+This public demo is a separate copy with its own licence-free library,
+so anyone can try it without touching my private music.
+
+&gt; <a href="https://linus.tail16ef75.ts.net/" target="_blank" rel="noopener">open music demo</a>     <a href="/">cd ..</a>
+<span class="dim">  https://linus.tail16ef75.ts.net</span></p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat demo-login.txt</div>
+<section class="box">
+  <h2>demo login</h2>
+  <p class="out">url        https://linus.tail16ef75.ts.net
+username   [demo username]
+password   [demo password]
+<span class="dim"># shared demo account without admin rights: browse, search and play.</span></p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat stack.txt</div>
+<section class="box">
+  <h2>stack</h2>
+  <p class="out">server     Navidrome 0.64.2
+           open source, Go, Subsonic-compatible API
+runtime    Docker Compose on Ubuntu Server 24.04 LTS
+hardware   HP desktop, Intel Pentium J3710 (4 cores), 1 TB disk
+access     Tailscale Funnel: public HTTPS without opening router ports
+website    static HTML/CSS on GitHub, served by Cloudflare
+apps       web player, Tempo, Symfonium, Ultrasonic</p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat how-it-works.txt</div>
+<section class="box">
+  <h2>how it works</h2>
+  <p class="out">  your browser or app
+         |   HTTPS request to linus.tail16ef75.ts.net
+         v
+  Tailscale Funnel
+         |   encrypted tunnel to my home server
+         v
+  home server "linus"
+         |   only the demo port is shared
+         v
+  navidrome-demo container
+         |   reads files, never writes
+         v
+  /srv/demo-music   (mounted read-only)
+
+<span class="dim"># no port forwarding on the router; the server makes the
+# outgoing connection, so it is not directly reachable.</span></p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat container.txt</div>
+<section class="box">
+  <h2>container</h2>
+  <p class="out">image      navidrome/navidrome:0.64.2 (pinned version)
+user       non-root (uid 1000)
+memory     capped at 512 MB; first to stop if the server runs short
+port       local only (127.0.0.1); public only through Funnel
+music      read-only volume
+sharing    public share links turned off
+scan       new music picked up automatically every night at 04:00
+telemetry  usage reporting turned off
+restart    comes back automatically after a reboot</p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ ls -l library/</div>
+<section class="box">
+  <h2>library</h2>
+  <p class="out">Open Lo-Fi Collection    166 tracks   CC0 (public domain)
+Jamendo Picks             35 tracks   Creative Commons
+13 Jamendo albums         13 tracks   Creative Commons
+<span class="dim">total: 214 tracks · 48 artists · 15 albums · about 10 hours · 830 MB</span>
+
+Tracks were tagged with album, artist and title so they group
+properly in the library.</p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat features.txt</div>
+<section class="box">
+  <h2>features</h2>
+  <p class="out">- stream in the browser, no install needed
+- browse by album, artist and genre; full-text search
+- playlists, favourites, ratings and recently played
+- works with any Subsonic app on Android, iOS and desktop
+- converts audio on the fly for slower connections
+- light and dark themes</p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat use-an-app.txt</div>
+<section class="box">
+  <h2>use an app</h2>
+  <p class="out">1. install a Subsonic app, e.g. Tempo or Ultrasonic (Android)
+2. add a server:
+     server     https://linus.tail16ef75.ts.net
+     username   [demo username]
+     password   [demo password]
+3. browse the library and press play</p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat security.txt</div>
+<section class="box">
+  <h2>security</h2>
+  <p class="out">- the demo is separate from my private library, which is not public
+- only the demo is exposed; every other service stays on the private VPN
+- the container runs as non-root, with read-only music and a memory cap
+- server firewall denies incoming traffic by default; SSH by key only
+- only licence-free music, so the demo can be shared openly</p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat learned.txt</div>
+<section class="box">
+  <h2>what I learned</h2>
+  <p class="out">- running services with Docker Compose and limiting their resources
+- sharing a home service publicly without opening router ports
+- moving a domain's DNS to Cloudflare and debugging DNS caching
+- music licensing: Creative Commons vs public domain (CC0)
+- cleaning up music metadata so a library groups correctly</p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat CREDITS</div>
+<section class="box">
+  <h2>credits</h2>
+  <p class="out">Open Lo-Fi by btahir, CC0 1.0 · <a href="https://github.com/btahir/open-lofi" target="_blank" rel="noopener">github.com/btahir/open-lofi</a>
+Jamendo tracks, each under its own Creative Commons licence · <a href="https://www.jamendo.com" target="_blank" rel="noopener">jamendo.com</a>
+Navidrome · <a href="https://www.navidrome.org" target="_blank" rel="noopener">navidrome.org</a>
+<span class="dim">Non-commercial demo. Each track's artist and licence are in its tags.</span></p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ cat NOTE</div>
+<section class="box">
+  <h2>note</h2>
+  <p class="out">It runs on one small home server, so it can be slow with many listeners
+and may be offline during maintenance or power cuts.</p>
+</section>
+
+<div class="prompt"><b>visitor@venkateshprabu</b>:~/music-streaming$ <span class="cursor" aria-hidden="true"></span></div>
+</main>
 </body>
 </html>
