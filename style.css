@@ -22,16 +22,16 @@ h1, h2 { font: inherit; margin: 0; }
 .box > h2::after { content: " ]"; color: var(--dim); }
 .box .out:last-child { margin-bottom: 14px; }
 
-/* Bottom-right 7-segment LED clock widget */
+/* Bottom-right digital watch 7-segment LED clock widget */
 .clock-widget {
   position: fixed;
-  bottom: 16px;
+  bottom: 18px;
   right: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 12px;
-  padding: 10px 14px;
+  gap: 10px;
+  font-size: 13px;
+  padding: 12px 16px;
   border: 1px solid var(--dim);
   background: var(--bg);
   color: var(--fg);
@@ -42,42 +42,57 @@ h1, h2 { font: inherit; margin: 0; }
 .clock-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .clock-label {
-  width: 28px;
+  width: 32px;
   font-weight: 700;
+  font-size: 13px;
   color: var(--fg);
 }
 
-.led-wrap {
-  position: relative;
-  display: inline-block;
+/* Individual slanted digital-watch 7-segment LED cells */
+.led-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
   font-family: "DSEG7-Classic", ui-monospace, monospace;
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 1px;
+  font-style: italic;
+  font-size: 22px;
   line-height: 1;
 }
 
-/* Faint unlit "88:88:88" segments underneath */
-.led-bg {
-  color: #1f1f1f;
+.led-cell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 5px;
+  background: #0b0b0b;
+  border: 1px solid #222;
+}
+
+.led-ghost {
+  color: #1e1e1e;
   user-select: none;
 }
 
-/* Lit bold LED segments on top */
-.led-digits {
+.led-val {
   position: absolute;
-  top: 0;
-  left: 0;
   color: var(--fg);
-  text-shadow: 0 0 6px rgba(242, 242, 242, 0.45);
+  text-shadow: 0 0 8px rgba(242, 242, 242, 0.55);
+}
+
+.led-colon {
+  color: var(--fg);
+  padding: 0 1px;
+  text-shadow: 0 0 8px rgba(242, 242, 242, 0.55);
 }
 
 .clock-utc {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
@@ -97,4 +112,5 @@ a:hover, a:focus-visible { background: var(--fg); color: var(--bg); text-decorat
   body { font-size: 13px; padding-top: 20px; }
   .out { overflow-wrap: anywhere; }
   .box { padding: 18px 12px 4px; }
+  .led-display { font-size: 18px; }
 }
