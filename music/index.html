@@ -6,24 +6,38 @@
   <title>Music demo · Venkatesh Prabu</title>
   <meta name="description" content="Live demo of my self-hosted Navidrome music server.">
   <style>
-    :root { color-scheme: light dark; --fg: #1a1a1a; --bg: #fafafa; --muted: #666; --accent: #0f6e56; }
-    @media (prefers-color-scheme: dark) { :root { --fg: #eaeaea; --bg: #111; --muted: #aaa; --accent: #5dcaa5; } }
-    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--fg);
+    :root { color-scheme: light dark; --fg: #1a1a1a; --bg: #fafafa; --muted: #5f6368; --accent: #0f6e56; --accent-fg: #fff; }
+    @media (prefers-color-scheme: dark) { :root { --fg: #ececec; --bg: #0f1112; --muted: #a3a8ab; --accent: #5dcaa5; --accent-fg: #0b1f19; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--fg);
            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; }
-    main { max-width: 520px; text-align: left; }
-    h1 { font-size: 22px; font-weight: 500; margin: 0 0 8px; }
-    p { line-height: 1.6; color: var(--muted); margin: 0 0 16px; }
+    main { max-width: 560px; }
+    a { color: var(--accent); }
+    .back { display: inline-block; margin-bottom: 24px; font-size: 14px; text-decoration: none; }
+    h1 { font-size: 26px; font-weight: 600; margin: 0 0 10px; }
+    p, li { line-height: 1.6; color: var(--muted); }
+    p { margin: 0 0 16px; }
+    ul { padding-left: 20px; margin: 0 0 20px; }
     a.button { display: inline-block; padding: 12px 20px; border-radius: 8px; background: var(--accent);
-               color: #fff; text-decoration: none; font-weight: 500; }
-    small { display: block; margin-top: 20px; color: var(--muted); font-size: 13px; }
+               color: var(--accent-fg); text-decoration: none; font-weight: 550; }
+    small { display: block; margin-top: 20px; color: var(--muted); font-size: 13px; line-height: 1.6; }
   </style>
 </head>
 <body>
   <main>
+    <a class="back" href="/">← Back to portfolio</a>
     <h1>Music streaming demo</h1>
-    <p>A self-hosted music server I run at home, built with Navidrome. The demo library uses only licence-free and public-domain tracks.</p>
-    <a class="button" href="https://linus.tail16ef75.ts.net/">Open the demo</a>
-    <small>Log in with the demo account shown on the project page.</small>
+    <p>A self-hosted music server I run at home, built with Navidrome. This demo is separate from my own library and uses only licence-free and public-domain tracks.</p>
+    <ul>
+      <li>Runs in Docker on a small Ubuntu home server</li>
+      <li>Shared publicly through Tailscale Funnel, with no ports opened on my router</li>
+      <li>Works in the browser and in Subsonic apps such as Tempo</li>
+      <li>Music: Jamendo (Creative Commons) and Open Lo-Fi (CC0)</li>
+    </ul>
+    <a class="button" href="https://linus.tail16ef75.ts.net/" target="_blank" rel="noopener">Open the demo</a>
+    <small>Demo link: <a href="https://linus.tail16ef75.ts.net/" target="_blank" rel="noopener">linus.tail16ef75.ts.net</a><br>
+      [Demo login: username / password]<br>
+      Runs on a home server, so it may occasionally be offline.</small>
   </main>
 </body>
 </html>
