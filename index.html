@@ -84,17 +84,27 @@ email      <span class="dim">[add address]</span></p>
 <div id="sys-clock" class="clock-widget" aria-label="System Clocks">
   <div class="clock-row">
     <span class="clock-label">IST</span>
-    <span class="led-wrap"><span class="led-bg" aria-hidden="true">88:88:88</span><span id="clock-ist" class="led-digits">--:--:--</span></span>
+    <div id="clock-ist" class="led-display" aria-label="IST Time"></div>
     <span class="dim clock-utc">(UTC+05:30)</span>
   </div>
   <div class="clock-row">
     <span class="clock-label">NYC</span>
-    <span class="led-wrap"><span class="led-bg" aria-hidden="true">88:88:88</span><span id="clock-nyc" class="led-digits">--:--:--</span></span>
+    <div id="clock-nyc" class="led-display" aria-label="NYC Time"></div>
     <span class="dim clock-utc" id="nyc-offset">(UTC-05:00)</span>
   </div>
 </div>
 
 <script>
+  function renderLedCells(containerId, timeStr) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = timeStr.split('').map(char => {
+      if (char === ':') {
+        return `<span class="led-colon">:</span>`;
+      }
+      return `<span class="led-cell"><span class="led-ghost" aria-hidden="true">8</span><span class="led-val">${char}</span></span>`;
+    }).join('');
+  }
+
   function updateClocks() {
     const now = new Date();
 
@@ -125,12 +135,12 @@ email      <span class="dim">[add address]</span></p>
     // Convert "GMT-5" or "GMT-4" to "(UTC-05:00)" or "(UTC-04:00)"
     const rawOffset = nycParts.find(p => p.type === 'timeZoneName')?.value || 'GMT-5';
     const match = rawOffset.match(/GMT([+-])(\d+)/);
-    const formattedNycOffset = match 
-      ? `(UTC${match[1]}${match[2].padStart(2, '0')}:00)` 
+    const formattedNycOffset = match
+      ? `(UTC${match[1]}${match[2].padStart(2, '0')}:00)`
       : '(UTC-05:00)';
 
-    document.getElementById('clock-ist').textContent = istTime;
-    document.getElementById('clock-nyc').textContent = nycTime;
+    renderLedCells('clock-ist', istTime);
+    renderLedCells('clock-nyc', nycTime);
     document.getElementById('nyc-offset').textContent = formattedNycOffset;
   }
 
