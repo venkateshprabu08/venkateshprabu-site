@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Venkatesh Prabu</title>
   <meta name="description" content="Venkatesh Prabu: self-hosting, homelab and web projects.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dseg@0.46.0/css/dseg.css">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -79,5 +80,62 @@ email      <span class="dim">[add address]</span></p>
 
 <div class="prompt"><b>visitor@venkateshprabu</b>:~$ <span class="cursor" aria-hidden="true"></span></div>
 </main>
+
+<div id="sys-clock" class="clock-widget" aria-label="System Clocks">
+  <div class="clock-row">
+    <span class="clock-label">IST</span>
+    <span class="led-wrap"><span class="led-bg" aria-hidden="true">88:88:88</span><span id="clock-ist" class="led-digits">--:--:--</span></span>
+    <span class="dim clock-utc">(UTC+05:30)</span>
+  </div>
+  <div class="clock-row">
+    <span class="clock-label">NYC</span>
+    <span class="led-wrap"><span class="led-bg" aria-hidden="true">88:88:88</span><span id="clock-nyc" class="led-digits">--:--:--</span></span>
+    <span class="dim clock-utc" id="nyc-offset">(UTC-05:00)</span>
+  </div>
+</div>
+
+<script>
+  function updateClocks() {
+    const now = new Date();
+
+    // Format IST (Asia/Kolkata - fixed UTC+05:30)
+    const istTime = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).format(now);
+
+    // Format New York (America/New_York - auto-adjusts EST/EDT)
+    const nycParts = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'America/New_York',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZoneName: 'shortOffset',
+      hour12: false
+    }).formatToParts(now);
+
+    const nycTime = nycParts
+      .filter(p => ['hour', 'minute', 'second', 'literal'].includes(p.type) && p.value !== ' ')
+      .map(p => p.value)
+      .join('');
+
+    // Convert "GMT-5" or "GMT-4" to "(UTC-05:00)" or "(UTC-04:00)"
+    const rawOffset = nycParts.find(p => p.type === 'timeZoneName')?.value || 'GMT-5';
+    const match = rawOffset.match(/GMT([+-])(\d+)/);
+    const formattedNycOffset = match 
+      ? `(UTC${match[1]}${match[2].padStart(2, '0')}:00)` 
+      : '(UTC-05:00)';
+
+    document.getElementById('clock-ist').textContent = istTime;
+    document.getElementById('clock-nyc').textContent = nycTime;
+    document.getElementById('nyc-offset').textContent = formattedNycOffset;
+  }
+
+  updateClocks();
+  setInterval(updateClocks, 1000);
+</script>
 </body>
 </html>
